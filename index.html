@@ -463,7 +463,86 @@ function startSparkles(){
 }
 
 function revealPage(){
-  // big blast of petals
+
+  // Birthday unlock time (India Standard Time)
+  const unlockDate = new Date('2026-06-05T00:00:00+05:30');
+  const now = new Date();
+
+  // If birthday has NOT arrived yet
+  if(now < unlockDate){
+
+    const diff = unlockDate - now;
+
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+
+    document.getElementById('s4').innerHTML = `
+      <p class="almost-sub">A special gift is waiting...</p>
+
+      <div class="almost">
+        Not yet, Neha 🌿
+      </div>
+
+      <div style="
+        margin-top:30px;
+        color:#e8d5a8;
+        font-family:'Cormorant Garamond', serif;
+        font-size:clamp(1.5rem,4vw,3rem);
+        line-height:1.5;
+      ">
+        ${days} Days<br>
+        ${hours} Hours<br>
+        ${mins} Minutes<br>
+        ${secs} Seconds
+      </div>
+
+      <p style="
+        margin-top:25px;
+        color:#a8c5a0;
+        letter-spacing:0.15em;
+        text-transform:uppercase;
+        font-size:0.8rem;
+      ">
+        Until your birthday begins ✨
+      </p>
+    `;
+
+    // Update countdown every second
+    if(!window.unlockCountdown){
+      window.unlockCountdown = setInterval(() => {
+
+        const now2 = new Date();
+        const diff2 = unlockDate - now2;
+
+        if(diff2 <= 0){
+          clearInterval(window.unlockCountdown);
+          location.reload();
+          return;
+        }
+
+        const d = Math.floor(diff2 / 86400000);
+        const h = Math.floor((diff2 % 86400000) / 3600000);
+        const m = Math.floor((diff2 % 3600000) / 60000);
+        const s = Math.floor((diff2 % 60000) / 1000);
+
+        document.querySelector('#s4 .almost').innerHTML =
+          `Birthday unlocks in`;
+
+        document.querySelector('#s4 div:nth-of-type(2)').innerHTML = `
+          ${d} Days<br>
+          ${h} Hours<br>
+          ${m} Minutes<br>
+          ${s} Seconds
+        `;
+      },1000);
+    }
+
+    return;
+  }
+
+  // Birthday has arrived → reveal actual page
   spawnBigBlast();
 
   const overlay=document.getElementById('surprise-overlay');
