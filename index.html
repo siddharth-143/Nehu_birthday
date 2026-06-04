@@ -15,6 +15,86 @@
 html { scroll-behavior: smooth; }
 body { background-color: var(--cream); color: var(--text-dark); font-family: 'Jost', sans-serif; font-weight: 300; overflow-x: hidden; cursor: none; }
 
+
+.birthday-gif{
+    position:absolute;
+    inset:12px;
+
+    width:calc(100% - 24px);
+    height:calc(100% - 24px);
+
+    object-fit:cover;
+
+    border-radius:16px;
+
+    border:3px solid rgba(232,213,168,0.7);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.15),
+        0 0 25px rgba(200,169,110,0.25);
+
+    transition:
+        transform 0.6s ease,
+        box-shadow 0.6s ease;
+
+    animation: floatGift 4s ease-in-out infinite;
+}
+
+.birthday-gif:hover{
+    transform:scale(1.03);
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.2),
+        0 0 35px rgba(232,213,168,0.4);
+}
+
+@keyframes floatGift{
+    0%,100%{
+        transform:translateY(0px);
+    }
+    50%{
+        transform:translateY(-8px);
+    }
+}
+
+.photo-frame-outer{
+    position:relative;
+    overflow:visible;
+}
+
+.photo-frame-outer::before{
+    content:"";
+    position:absolute;
+    inset:-8px;
+
+    border-radius:22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(232,213,168,0.7),
+            rgba(200,169,110,0.2),
+            rgba(232,213,168,0.7)
+        );
+
+    z-index:-1;
+
+    filter:blur(10px);
+    opacity:.7;
+
+    animation: glowFrame 3s ease-in-out infinite;
+}
+
+@keyframes glowFrame{
+    0%,100%{
+        opacity:.5;
+        transform:scale(1);
+    }
+    50%{
+        opacity:.9;
+        transform:scale(1.02);
+    }
+}
+  
 /* ══════════════════════════════════════════
    SURPRISE OVERLAY SYSTEM
 ══════════════════════════════════════════ */
